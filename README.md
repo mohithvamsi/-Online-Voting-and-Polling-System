@@ -1,1 +1,0 @@
-# -Online-Voting-and-Polling-System
