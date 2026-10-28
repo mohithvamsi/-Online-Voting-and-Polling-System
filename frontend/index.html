@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Online Voting Polling System · PollRoom</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="topbar">
+    <a href="/" class="brand">◈ PollRoom <span>Online Voting Polling System</span></a>
+    <div id="account" hidden><span id="email"></span><button id="logout" class="secondary">Log out</button></div>
+  </header>
+  <main id="main">
+    <div id="notice" role="status" aria-live="polite" tabindex="-1" hidden></div>
+    <section id="auth" class="welcome">
+      <div><p class="eyebrow">A SPACE FOR EVERY VOICE</p><h1>Ask a question.<br>Make a choice.</h1>
+        <p class="lead">Create a poll, collect one vote per account, and explore the results when voting closes.</p>
+        <div class="note">Built for classroom decisions and informal polls. Votes are linked to accounts in the database.</div>
+      </div>
+      <form id="auth-form" class="panel">
+        <h2 id="auth-title">Welcome back</h2><p id="auth-help">Sign in to browse and vote.</p>
+        <label for="auth-email">Email address</label><input id="auth-email" type="email" autocomplete="email" maxlength="254" required>
+        <label for="password">Password</label><input id="password" type="password" autocomplete="current-password" minlength="8" maxlength="128" required>
+        <button id="auth-submit" type="submit">Sign in</button>
+        <button id="switch-auth" type="button" class="secondary">Create an account</button>
+      </form>
+    </section>
+    <section id="workspace" hidden>
+      <div class="hero"><div><p class="eyebrow">YOUR COMMUNITY, YOUR CHOICE</p><h1>The polling room</h1><p>Create thoughtful questions. Let everyone have a say.</p></div><button id="new-poll">+ Create poll</button></div>
+      <form id="filters" class="filters panel">
+        <label>Search questions<input id="search" type="search" maxlength="80" placeholder="Find a poll..."></label>
+        <label>Status<select id="status"><option value="all">All polls</option><option value="open">Open</option><option value="closed">Closed</option></select></label>
+        <label class="check"><input id="mine" type="checkbox"> My polls only</label><button type="submit" class="secondary">Apply filters</button>
+      </form>
+      <p id="list-status" role="status"></p><div id="poll-list" class="grid" aria-busy="false"></div>
+      <nav class="pagination" aria-label="Poll pages"><button id="previous" class="secondary">Previous</button><span id="page-info"></span><button id="next" class="secondary">Next</button></nav>
+    </section>
+  </main>
+  <dialog id="create-dialog" aria-labelledby="create-title">
+    <div class="dialog-head"><h2 id="create-title">Create a poll</h2><button type="button" data-close="create-dialog" class="secondary" aria-label="Close create poll">✕</button></div>
+    <form id="create-form">
+      <p>Polls open immediately. Questions and choices cannot be edited after publication.</p>
+      <label for="question">Your question</label><input id="question" required minlength="5" maxlength="160">
+      <label for="description">Description (optional)</label><textarea id="description" maxlength="1000" rows="3"></textarea>
+      <label for="choices">Choices — one per line (2–6)</label><textarea id="choices" required rows="5" placeholder="Workshop on Saturday&#10;Workshop on Sunday"></textarea>
+      <label for="deadline">Closing time (your local time)</label><input id="deadline" type="datetime-local" required>
+      <p>Choose a time between 1 minute and 30 days from now.</p><p id="create-error" class="error" role="alert"></p>
+      <button type="submit">Publish poll</button>
+    </form>
+  </dialog>
+  <dialog id="detail-dialog" aria-labelledby="detail-title">
+    <div class="dialog-head"><h2 id="detail-title">Poll</h2><button type="button" data-close="detail-dialog" class="secondary" aria-label="Close poll">✕</button></div>
+    <div id="detail" aria-busy="false"></div>
+    <p id="detail-error" class="error" role="alert"></p>
+  </dialog>
+  <dialog id="confirm-dialog" aria-labelledby="confirm-title">
+    <h2 id="confirm-title">Confirm action</h2><p id="confirm-message"></p>
+    <div class="actions"><button id="confirm-no" class="secondary">Cancel</button><button id="confirm-yes" class="danger">Confirm</button></div>
+  </dialog>
+  <footer>PollRoom · One account. One choice. A clearer decision.</footer>
+</body>
+</html>
